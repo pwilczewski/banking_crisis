@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import yfinance as yf
 
 largest_banks = ['JPM','BAC','C','WFC','USB','PNC','TFC','GS','COF','BK']
 bank_tickers = ['ABCB',	'ACNB',	'AFBI',	'ALRS',	'AMAL',	'AMNB',	'AMTB',	'AROW',	'ASB',	'ASRV',	'ATLO',	'AUB',	'AUBN',	'BAC',	'BANC',	'BANF',	'BANR',	'BCML',	'BCOW',	'BFC',	'BFIN',	'BFST',	'BHB',	'BKSC',	'BLFY',	'BMRC',	'BOH',	'BOKF',	'BOTJ',	'BPOP',	'BPRN',	'BRBS',	'BSRR',	'BSVN',	'BUSE',	'BWB',	'BWFG',	'BY',	'C',	'CAC',	'CADE',	'CALB',	'CARE',	'CASH',	'CATC',	'CATY',	'CBAN',	'CBFV',	'CBNK',	'CBSH',	'CBU',	'CCB',	'CCBG',	'CCNE',	'CFB',	'CFFI',	'CFG',	'CFR',	'CFSB',	'CHCO',	'CHMG',	'CIVB',	'CIZN',	'CLBK',	'CMA',	'CNOB',	'COFS',	'COLB',	'CPF',	'CSTR',	'CTBI',	'CUBI',	'CVBF',	'CVCY',	'CWBC',	'CZFS',	'CZNC',	'EBC',	'EBTC',	'ECBK',	'EFSC',	'EGBN',	'ESQ',	'ESSA',	'EVBN',	'EWBC',	'FBIZ',	'FBK',	'FBMS',	'FBNC',	'FCBC',	'FCCO',	'FCF',	'FCNCA',	'FDBC',	'FFBC',	'FFIC',	'FFIN',	'FFNW',	'FFWM',	'FGBI',	'FHB',	'FHN',	'FIBK',	'FINW',	'FISI',	'FITB',	'FLIC',	'FMBH',	'FMNB',	'FNB',	'FNCB',	'FNLC',	'FNWB',	'FRAF',	'FRBA',	'FRBK',	'FRC',	'FRME',	'FRST',	'FSBC',	'FSBW',	'FSEA',	'FSFG',	'FULT',	'FUNC',	'FUSB',	'FVCB',	'FXNC',	'GABC',	'GBCI',	'GBNY',	'GGAL',	'GLBZ',	'GNTY',	'GSBC',	'HAFC',	'HBAN',	'HBCP',	'HBNC',	'HBT',	'HFWA',	'HIFS',	'HMST',	'HNVR',	'HOMB',	'HONE',	'HOPE',	'HTBK',	'HTH',	'HTLF',	'HVBC',	'HWBK',	'HWC',	'IBCP',	'IBOC',	'IBTX',	'INBK',	'INDB',	'ISTR',	'JMSB',	'JPM',	'KEY',	'LARK',	'LBAI',	'LBC',	'LCNB',	'LKFN',	'LMST',	'LOB',	'MBCN',	'MBIN',	'MBWM',	'MCB',	'MCBC',	'MCBS',	'MGYR',	'MLVF',	'MNSB',	'MOFG',	'MPB',	'MRBK',	'MSBI',	'MSVB',	'MTB',	'MYFW',	'NBHC',	'NBN',	'NBTB',	'NFBK',	'NIC',	'NKSH',	'NSTS',	'NWBI',	'NWFL',	'NYCB',	'OBNK',	'OBT',	'ONB',	'OPBK',	'OPHC',	'OPOF',	'ORRF',	'OSBC',	'OVBC',	'OVLY',	'OZK',	'PACW',	'PB',	'PBBK',	'PBFS',	'PBHC',	'PCB',	'PEBK',	'PEBO',	'PFBC',	'PFIS',	'PGC',	'PKBK',	'PNBK',	'PNC',	'PNFP',	'PPBI',	'PRK',	'PTRS',	'PVBC',	'PWOD',	'QCRH',	'RBB',	'RBCAA',	'RBKB',	'RF',	'RNST',	'RRBI',	'RVSB',	'SASR',	'SBCF',	'SBFG',	'SBSI',	'SFBS',	'SFNC',	'SFST',	'SHBI',	'SHFS',	'SMBC',	'SMBK',	'SMMF',	'SNV',	'SPFI',	'SRCE',	'SSB',	'SSBI',	'SSBK',	'STBA',	'STEL',	'SYBT',	'TBBK',	'TCBC',	'TCBI',	'TCBK',	'TCBS',	'TCBX',	'TCFC',	'TFC',	'TFIN',	'THFF',	'TMP',	'TOWN',	'TRMK',	'TRST',	'TSBK',	'UBCP',	'UBFO',	'UBSI',	'UCBI',	'UMBF',	'UNB',	'UNTY',	'USB',	'USCB',	'UVSP',	'VABK',	'VBFC',	'VBTX',	'VLY',	'WABC',	'WAFD',	'WAL',	'WASH',	'WBS',	'WFC',	'WSBC',	'WSFS',	'WTBA',	'WTFC',	'ZION','GS','COF','BK','STT','MS','ALLY', 'AXP','NTRS','DFS']
@@ -85,6 +84,7 @@ def load_equity_data(from_file=True):
         init_prices = pd.read_csv("init_prices.csv")
         curr_prices = pd.read_csv("curr_prices.csv")
     else:
+        import yfinance as yf
         init_prices = yf.download(bank_tickers, period="1d", start="2023-03-08", end="2023-03-09")["Adj Close"]
         curr_prices = yf.download(bank_tickers, period="1d")["Adj Close"]
         init_prices.to_csv("init_prices.csv", index=False)
