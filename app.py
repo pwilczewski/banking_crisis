@@ -26,18 +26,13 @@ with gr.Blocks() as crisis_dashboard:
     with gr.Tab("Interest Rates"):
         with gr.Row():
             with gr.Column():
-                gr.Markdown("## <center>Treasury yield curve</center>")
+                # gr.Markdown("## <center>Treasury yield curve</center>")
                 gr.Plot(plot_treasury_curves(yc_frame))
             with gr.Column():
-                gr.Markdown("## <center>Credit spreads</center>")
+                # gr.Markdown("## <center>Credit spreads</center>")
                 gr.Plot(plot_credit_spreads(spread_frame))
         gr.Markdown("### <center>Data Source: FRED</center>")
     #with gr.Tab("Fed Balance Sheet"):
-    #    seed = gr.Number(label="Seed", elem_id="seed", every=int, value=random.randint(0,2147483647))
     #with gr.Tab("Bank Balance Sheets"):
-    #    scale = gr.Number(label="Guidance scale", elem_id='scale', value=7.5)
-
-    #text.submit(infer, inputs=[text, style,steps, seed, scale], outputs=gallery)
-    #btn.click(infer, inputs=[text, style,steps, seed, scale], outputs=gallery)
         
 crisis_dashboard.launch()
